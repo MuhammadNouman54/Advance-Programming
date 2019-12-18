@@ -1,0 +1,156 @@
+<!-- Muhammad Nouman BSCS7B 218663-->
+<html>
+    <head>
+
+        <style>
+        a{
+            width: 50px; height: 30px; 
+            background-color: gray;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            margin-bottom: 1px;
+            margin-right: 1px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 30px;
+            vertical-align: middle;
+        }
+        div{
+            font-size: 0px;            
+
+        }
+        .txt{
+            display: block;
+            width:100%;
+            margin-bottom: 1px;
+            padding: 5px;
+            border: solid 1px gray;
+            outline: none;
+        }
+
+        #calculator{
+            display: inline-block;
+        }
+        
+        </style>
+    </head>
+    <body>
+        <div id="calculator" >
+            <div>
+                <input type="text" class="txt" value="0">
+            </div>
+            <div>
+                <a href="#" onclick="McFunction()">MC</a>
+                <a class="num" href="#">0</a>
+                <a class="num" href="#">1</a>
+                <a class="num" href="#">2</a>
+                <a class="num" href="#">+</a>
+            </div>
+            <div>
+                    <a href="#" onclick="MsFunction()">MS</a>
+                    <a class="num" href="#">3</a>
+                    <a class="num" href="#">4</a>
+                    <a class="num" href="#">5</a>
+                    <a class="num" href="#">-</a>
+            </div>
+            <div>
+                    <a href="#" onclick="MrFunction()">MR</a>
+                    <a class="num" href="#">6</a>
+                    <a class="num" href="#">7</a>
+                    <a class="num" href="#">8</a>
+                    <a class="num" href="#">*</a>
+            </div>
+            <div>
+                    <a href="#" onclick="MaFunction()">M+</a>
+                    <a class="num" href="#">9</a>
+                    <a href="#" onclick= invert()>&plusmn;</a>
+                    <a href="#" onclick="result()">=</a>
+                    <a class="num" href="#">/</a></div>
+            <div> 
+                <a href="#" onclick="inverse();">1/X</a>
+                <a href="#" onclick=toFloat()>.</a>
+                <a href="#" onclick="square()">X&sup2;</a>
+                <a href="#" onclick="squareRoot()">&radic;</a>
+                <a href="#" onclick="txtVal('0');">C</a>
+            </div>
+            
+        </div>
+
+
+
+        <script>
+            decimal=true;
+            storedValue = 0;
+            myTxt = document.getElementsByClassName("txt")[0];
+            btn_num = document.getElementsByClassName("num"); 
+            for(i=0; i<btn_num.length; i++){
+
+                btn_num[i].addEventListener("click", function(){
+                    if(myTxt.value == 0){
+                        myTxt.value="";
+                    }
+                    myTxt.value+= this.innerHTML;
+                    if(this.innerHTML=='+' || this.innerHTML== '-' || this.innerHTML=='*' ||this.innerHTML == '/'){
+                        decimal = true;
+                    }
+                });
+            }
+            function txtVal(v){
+                myTxt.value = v;
+            }
+            function toFloat(){
+                if(decimal){
+                    myTxt.value+=".";
+                    decimal = false;
+                }
+            }
+            function square(){
+                    myTxt.value = "("+myTxt.value+")*" + "("+myTxt.value+")";
+                    result();
+            }
+            function squareRoot(){
+                myTxt.value = Math.sqrt(myTxt.value);
+            }
+            function inverse(){
+                myTxt.value = "1/(" + myTxt.value + ")"
+            }
+            function invert(){
+                myTxt.value = myTxt.value * -1;
+            }
+            function result(){
+                myTxt.value = eval(myTxt.value);   
+            }
+            function lookInString(char){
+                myTxt.value.forEach(element => {
+                    if (element == char) {
+                        return true
+                    }
+                });
+                return false;
+            }
+            function MrFunction(){
+                myTxt.value = storedValue;
+            }
+            function MsFunction(){
+                result();
+                storedValue = myTxt.value;
+                alert("Value Saved");
+            }
+            function McFunction(){
+                storedValue = 0;
+                alert("Value Cleared");
+            }
+            function MaFunction(){
+                result();
+                storedValue = eval(storedValue+"+" + myTxt.value);
+                alert("Value Added. New Value is "+storedValue);
+            }
+            
+
+            
+        </script>
+
+    </body>
+</html>
+
